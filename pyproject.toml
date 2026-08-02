@@ -2,15 +2,45 @@
 line-length = 120
 
 [tool.codespell]
+enable-colors = true
+write-changes = true
+check-hidden = true
+quiet-level = 3
 dictionary = ["_tools/codespell-dict.txt", "-"]
-ignore-words = "_tools/codespell-ignore.txt"
+builtin = ["clear", "rare", "en-GB_to_en-US"]
 skip = [
+    # For some reason, we require ever-so-slightly different paths.
+    # This is what works on pre-commit CI runs.
     "_build/*",
     "_static/*",
     "_styleguides/*",
     "classes/*",
     ".github/*",
     "tutorials/i18n/locales.rst",
+
+    # This is what works locally, which
+    # also matches codespell's documentation.
+    "./_build",
+    "./_static",
+    "./_styleguides",
+    "./classes",
+    "./.github",
+    "./tutorials/i18n/locales.rst",
+
     "AUTHORS.md",
     "LICENSE.txt",
 ]
+ignore-words-list = [
+    "dialogue",     # Common even in US spelling.
+    "doubleclick",
+    "findn",        # Our case-insensitive `find` function.
+    "implementors",
+    "inout",        # Shader attribute.
+    "lod",          # "Level of Detail".
+    "marshalled",   # Common spelling in IT.
+    "marshalling",  # Common spelling in IT.
+    "thirdparty",   # Prefer as one word.
+    "uint",         # "Unsigned integer".
+    "writeable",    # Part of a Python error message.
+]
+ignore-multiline-regex = "codespell:ignore-begin.*?codespell:ignore-end"
